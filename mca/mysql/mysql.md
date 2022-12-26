@@ -137,3 +137,76 @@ B* 树
 	or 
 ~~~
 
+# 3、MVCC多版本并发控制
+
+~~~
+读不加锁，写乐观锁
+快照读
+~~~
+
+## 1、实现原理
+
+~~~
+1、记录的隐性字段（多个）
+	trx_id --> 事务ID 对于比当前事务ID 大的事务是不可见的。
+	版本链 --> 不同事务 || 相同事务 对 同一记录进行修改的时候，导致该记录的 undo 成为一条（记录）链表；修改前后的值
+	roll_ptr --> 指向 undo 日志的指针
+2、undo 日志(原子性)
+3、Read View
+	m_ids:生成 Read view 时，当前活跃的事务ID
+	min_trx_id : Min(m_ids)
+	max_trx_id : max(m_ids) + 1
+	creater_trx_id:创建 Read View 时，当前事务ID
+	
+	访问规则：
+		1、当前事务ID == creater_trx_id --> 能够访问数据
+		2、当前事务ID < min_trx_id -->能够访问数据
+		3、当前事务ID > max_trx_id -->不能访问数据
+		4、当前事务ID in m_ids ? 不能访问数据 : 能够访问数据（事务（非活跃）已经提交）
+		5、某个版本 对 当前事务不可见，顺着 版本链往前找（直到找不到）第一个 不在 m_ids 中的事务
+		
+两种事务隔离，怎么实现
+	1、READ COMMIT
+		
+	2、REPEATABLE
+~~~
+
+## 2、Innodb 三大特性
+
+### 1、自适应hash
+
+类似于缓存
+
+~~~
+内部监控索引表，某个索引经常使用（热数据），在内部创建一个 hash 索引，下次查询时，根据 hash 索引查找
+
+show engion innodb status
+
+show variable like "innode_adaptive%"
+~~~
+
+
+
+### 2、buffer Pool
+
+缓存磁盘页（16K 的数据）
+
+~~~
+show variable like "innode_buffer%" 8M 
+
+~~~
+
+
+
+### 3、双写机制（doublewrite buffer）磁盘
+
+数据页的可靠性 <a hert="https://zhuanlan.zhihu.com/p/272720373#:~:text=Double%20write,buffer%20%E5%AE%83%E6%98%AF%E5%9C%A8%E7%89%A9%E7%90%86%E6%96%87%E4%BB%B6%E4%B8%8A%E7%9A%84%E4%B8%80%E4%B8%AAbuffer%2C%20%E5%85%B6%E5%AE%9E%E4%B9%9F%E5%B0%B1%E6%98%AFfile%EF%BC%8C%E6%89%80%E4%BB%A5%E5%AE%83%E4%BC%9A%E5%AF%BC%E8%87%B4%E7%B3%BB%E7%BB%9F%E6%9C%89%E6%9B%B4%E5%A4%9A%E7%9A%84fsync%E6%93%8D%E4%BD%9C%EF%BC%8C%E8%80%8C%E5%9B%A0%E4%B8%BA%E7%A1%AC%E7%9B%98%E7%9A%84fsync%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98%EF%BC%8C%E6%89%80%E4%BB%A5%E4%B9%9F%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%B4%E4%BD%93%E6%80%A7%E8%83%BD%E3%80%82">双写机制链接</a>
+
+数据库崩溃恢复时保证数据不丢失
+
+~~~
+数据刷脏的时候，先拷贝到 内存 doublewrite buffer 中
+然后再 顺序写到 磁盘 共享表空间中（doublewrite buffer）
+然后再 离散写到 数据文件中
+~~~
+
