@@ -15,7 +15,7 @@
 
 数据恢复
 
-![image-20220819105248320](C:\Users\CSB7D0\Desktop\mca\typroImage\image-20220819105248320.png)
+![image-20220819105248320](../typroImage/image-20220819105248320.png)
 
 ~~~
 1、预读取 ： 局部性原理
@@ -44,7 +44,7 @@
 
 # 2、数据库的体系结构（一条 sql 的执行）
 
-![image-20220819135320199](C:\Users\CSB7D0\Desktop\mca\typroImage\image-20220819135320199.png)
+![image-20220819135320199](../typroImage/image-20220819135320199.png)
 
 ~~~
 1、连接：连接到数据库管理
@@ -61,7 +61,7 @@
 5、执行引擎
 ~~~
 
-![image-20220822212749488](C:\Users\CSB7D0\Desktop\mca\typroImage\image-20220822212749488.png)
+![image-20220822212749488](../typroImage/image-20220822212749488.png)
 
 # 3、为什么要用 B+ 树 做存储
 
@@ -115,11 +115,11 @@
 
 ### 1、MyiSAM：myi(index) + myd(data) 。索引 --> data
 
-![image-20220822221309558](C:\Users\CSB7D0\Desktop\mca\typroImage\image-20220822221309558.png)
+![image-20220822221309558](../typroImage/image-20220822221309558.png)
 
 ### 2、Innodb。数据 即 索引
 
-![image-20220822221500519](C:\Users\CSB7D0\Desktop\mca\typroImage\image-20220822221500519.png)
+![image-20220822221500519](../typroImage/image-20220822221500519.png)
 
 # 8、数据库的事务
 
@@ -192,11 +192,11 @@ SQL92标准：官网很low,是一个 txt 文档
 
 ## 1、垂直分库（按业务）
 
-![image-20220829214518651](C:\Users\CSB7D0\Desktop\mca\typroImage\image-20220829214518651.png)
+![image-20220829214518651](../typroImage/image-20220829214518651.png)
 
 ## 2、水平分表（数据维度切分）
 
-![image-20220829214449256](C:\Users\CSB7D0\Desktop\mca\typroImage\image-20220829214449256.png)
+![image-20220829214449256](../typroImage/image-20220829214449256.png)
 
 # 11、如何进行慢查询SQL
 
