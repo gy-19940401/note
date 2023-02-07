@@ -159,7 +159,7 @@ B* 树
 	creater_trx_id:创建 Read View 时，当前事务ID
 	
 	访问规则：
-		1、当前事务ID == creater_trx_id --> 能够访问数据
+		1、当前事务ID == creater_trx_id --> 同一事务产生数据，当前事务可见
 		2、当前事务ID < min_trx_id -->能够访问数据
 		3、当前事务ID > max_trx_id -->不能访问数据
 		4、当前事务ID in m_ids ? 不能访问数据 : 能够访问数据（事务（非活跃）已经提交）
