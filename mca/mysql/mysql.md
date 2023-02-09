@@ -75,7 +75,7 @@ utf8mb4：可以存 3 个字节的中文
 
 ### 4、存储引擎(数据文件的组织形式)
 
-#### ![image-20220621210930615](C:\Users\CSB7D0\AppData\Roaming\Typora\typora-user-images\image-20220621210930615.png)
+#### ![image-20220621210930615](../typroImage/mysql_index_diff.png)
 
 ~~~
 myISAM：不支持 事务，行锁，外键

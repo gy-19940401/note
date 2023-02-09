@@ -15,7 +15,7 @@
 
 数据恢复
 
-![image-20220819105248320](../typroImage/image-20220819105248320.png)
+![image-20220819105248320](../typroImage/sql_data_recovery.png)
 
 ~~~
 1、预读取 ： 局部性原理
@@ -44,7 +44,7 @@
 
 # 2、数据库的体系结构（一条 sql 的执行）
 
-![image-20220819135320199](../typroImage/image-20220819135320199.png)
+![image-20220819135320199](../typroImage/sql_invoke_1.png)
 
 ~~~
 1、连接：连接到数据库管理
