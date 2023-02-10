@@ -65,11 +65,17 @@ create table user_partitions
 
 ### 1.8 key_len 表示索引中使用的字节数
 
-### 1.9 select_type
+### 1.9 ref 显示该表的索引字段关联了哪张表的哪个字段
 
-### 1.10 select_type
+### 1.10 rows 根据表统计信息及选用情况，大致估算出找到所需的记录或所需读取的行数，数值越小越好
 
-### 1.11 select_type
+### 1.11 filtered 返回结果的行数占读取行数的百分比，值越大越好
 
-### 1.12 select_type
+### 1.12 extra 包含不适合在其他列中显示但十分重要的额外信息。
 
+~~~text
+use index     : 表示select操作使用了索引覆盖，避免回表访问数据行，效率不错
+use where     : where子句用于限制哪一行 
+use filesort  : MySQL会对数据使用非索引列进行排序，而不是按照索引顺序进行读取；若出现改值，应优化索引
+use temporary : 使用临时表保存中间结果，比如，MySQL在对查询结果排序时使用临时表，常见于order by和group by；若出现改值，应优化索引
+~~~
