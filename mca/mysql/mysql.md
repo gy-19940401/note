@@ -6,17 +6,9 @@
 
 ![image-20221027231634952](../typroImage/image-20221027231634952.png)
 
-## 1、执行监控
 
-### 1、show profile
 
-~~~
-1.设置属性：set profiling=1
-2.执行的统计时间：show profiles;
-3.执行的具体时间：show profile;
-4.指定某一条sql : show profile for query query_id
-	其他指标：all ,cpu ,block io , context switch ...
-~~~
+
 
 ### 2、performance Schema(不会持久化)
 
@@ -35,7 +27,7 @@ SHOW VARIABLES LIKE "performance_schema";
 ~~~，
 1、选择合适的数据类型（INET_ATON,INET_NTOA）
 2、简单就好
-3、尽量避免 null (null !=null)
+3、尽量避免 null (null != null)
 4、细则。
 	1.整形选择合适的长度。
 	2.字符型。
@@ -75,7 +67,7 @@ utf8mb4：可以存 3 个字节的中文
 
 ### 4、存储引擎(数据文件的组织形式)
 
-#### ![image-20220621210930615](../typroImage/mysql_index_diff.png)
+
 
 ~~~
 myISAM：不支持 事务，行锁，外键
@@ -84,20 +76,6 @@ myISAM：不支持 事务，行锁，外键
 非聚簇索引：索引与数据不在一起的索引
 
 加锁：是个索引加锁。条件是索引，加行锁;否咋加表锁
-~~~
-
-## 3、执行计划（explain）
-
-~~~
-id：sql 执行的顺序。id 值越大越先执行。
-select_type 复杂度
-	simple:普通查询
-type 访问方式
-	system>const>eq_ref>ref>fulltext>ref_or_null>index_merge>unique_subquery>index_subquery>range>index>all
-possible_keys 
-key
-key_lens：越短越好
-Extra
 ~~~
 
 ## 4、索引（B+树）优化

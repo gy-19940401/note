@@ -1,3 +1,12 @@
+# 0、LBCC(Lock Based Concurrency Control)
+
+~~~text
+在读取数据的时候，锁定读取的数据，不允许其他事务修改。
+
+缺点
+	不支持并发的读写操作。大大降低数据操作的效率
+~~~
+
 # MVCC多版本并发控制
 
 ~~~text
